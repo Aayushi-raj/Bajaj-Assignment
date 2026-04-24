@@ -38,13 +38,67 @@ The objective is to consume API responses from an external system representing a
    ```
 
 ### Output
-The console will display the progress of each of the 10 polls, noting any new events and ignoring any duplicates. After the 10th poll, it will display the generated leaderboard and the final response from the submission API, which should be:
-```json
-{
-  "isCorrect": true,
-  "isIdempotent": true,
-  "submittedTotal": <value>,
-  "expectedTotal": <value>,
-  "message": "Correct!"
-}
+The console will display the progress of each of the 10 polls, noting any new events and ignoring any duplicates. After the 10th poll, it will display the generated leaderboard and the final response from the submission API.
+
+Here is a sample output of the application running:
+```bash
+PS C:\Users\Ayushiraj\Downloads\Bajaj\QuizLeaderboardSystem> mvn exec:java
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.srm:quiz-leaderboard-system >-------------------
+[INFO] Building quiz-leaderboard-system 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- exec:3.1.0:java (default-cli) @ quiz-leaderboard-system ---    
+Starting Quiz Leaderboard processing for RegNo: RA2311003010829
+Polling API (Index: 0)...
+  [New Event] Diana scored 200 in R1
+  [New Event] Ethan scored 155 in R1
+  Waiting 5 seconds before next poll...
+Polling API (Index: 1)...
+  [New Event] Fiona scored 180 in R1
+  Waiting 5 seconds before next poll...
+Polling API (Index: 2)...
+  [New Event] Diana scored 95 in R2
+  [New Event] Ethan scored 210 in R2
+  Waiting 5 seconds before next poll...
+Polling API (Index: 3)...
+  [Duplicate Event Ignored] Diana in R2
+  Waiting 5 seconds before next poll...
+Polling API (Index: 4)...
+  [New Event] Fiona scored 140 in R3
+  [New Event] Diana scored 175 in R3
+  Waiting 5 seconds before next poll...
+Polling API (Index: 5)...
+  [New Event] Fiona scored 120 in R2
+  Waiting 5 seconds before next poll...
+Polling API (Index: 6)...
+  [New Event] Ethan scored 90 in R3
+  [Duplicate Event Ignored] Diana in R1
+  Waiting 5 seconds before next poll...
+Polling API (Index: 7)...
+  [Duplicate Event Ignored] Fiona in R3
+  Waiting 5 seconds before next poll...
+Polling API (Index: 8)...
+  [Duplicate Event Ignored] Ethan in R2
+  [Duplicate Event Ignored] Diana in R3
+  Waiting 5 seconds before next poll...
+Polling API (Index: 9)...
+  [Duplicate Event Ignored] Fiona in R1
+
+Generating Leaderboard...
+  Diana: 470
+  Ethan: 455
+  Fiona: 440
+
+Submitting Leaderboard...
+Submission Response Code: 200
+Submission Response Body: {"regNo":"RA2311003010829","totalPollsMade":31,"submittedTotal":1365,"attemptCount":2}
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  47.138 s
+[INFO] Finished at: 2026-04-24T18:20:57+05:30
+[INFO] ------------------------------------------------------------------------
 ```
